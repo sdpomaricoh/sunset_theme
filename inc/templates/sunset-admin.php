@@ -1,3 +1,7 @@
 <h1>Sunset Theme Options</h1>
-<form action="options.php" method="post">
+<?php settings_errors(); ?>
+<form method="post" action="options.php">
+	<?php settings_fields( 'sunset-settings-group' ); ?>
+	<?php do_settings_sections( 'sunset_theme' ); ?>
+	<?php submit_button(); ?>
 </form>
