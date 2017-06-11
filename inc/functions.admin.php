@@ -80,6 +80,10 @@ function sunset_custom_settings() {
 
     //Register the settings group
 	register_setting('sunset-settings-group', 'first_name');
+	register_setting('sunset-settings-group', 'last_name');
+    register_setting('sunset-settings-group', 'twitter_handler', 'sunset_sanitize_twitter_handler');
+    register_setting('sunset-settings-group', 'facebook_handler');
+    register_setting('sunset-settings-group', 'github_handler');
 
     // add section of the page
 	add_settings_section(
@@ -92,10 +96,34 @@ function sunset_custom_settings() {
     //add first name field
     add_settings_field(
         'sidebar-name', //Custom Id
-        'First Name', // Title
+        'Full Name', // Title
         'sunset_sidebar_name', // Callback fuction
         'sunset_theme', // Page
         'sunset-sidebar-options' // Setting section
+    );
+
+    add_settings_field(
+        'sidebar-twitter',
+        'Twitter Handler',
+        'sunset_sidebar_twitter',
+        'sunset_theme',
+        'sunset-sidebar-options'
+    );
+
+    add_settings_field(
+        'sidebar-facebook',
+        'Facebook Handler',
+        'sunset_sidebar_facebook',
+        'sunset_theme',
+        'sunset-sidebar-options'
+    );
+
+    add_settings_field(
+        'sidebar-github',
+        'Github Handler',
+        'sunset_sidebar_github',
+        'sunset_theme',
+        'sunset-sidebar-options'
     );
 }
 
@@ -111,5 +139,45 @@ function sunset_sidebar_options() {
  */
 function sunset_sidebar_name(){
     $firstName = get_option('first_name');
-    echo "<input type='text' name='first_name' value='".$firstName."' placeholder='First Name' >";
+    $lastName = get_option('last_name');
+    echo "<input type='text' name='first_name' value='".$firstName."' placeholder='First Name' ><input type='text' name='last_name' value='".$lastName."' placeholder='Last Name' >";
+}
+
+/**
+ * Generate the twitter input field
+ */
+function sunset_sidebar_twitter(){
+    $twitterHandler= get_option('twitter_handler');
+echo "<input type='text' name='twitter_handler' value='".$twitterHandler."' placeholder='Twitter Username'><p class='description'>Input your twitter username without the @ character</p>";
+}
+
+
+/**
+ * Generate the twitter input field
+ */
+function sunset_sidebar_facebook(){
+    $facebookHandler = get_option('facebook_handler');
+    echo "<input type='url' name='facebook_handler' value='".$facebookHandler."' placeholder='Facebook Url'>";
+}
+
+/**
+ * Generate the twitter input field
+ */
+function sunset_sidebar_github(){
+    $githubHandler= get_option('github_handler');
+    echo "<input type='url' name='github_handler' value='".$githubHandler."' placeholder='Github Url'>";
+}
+
+// 3. Sanitization Settings
+// -----------------------------------------------------------------------------
+
+
+/**
+ * sanitize the input field removing the special characters
+ * @param [Objet] $input setting input field
+ */
+function sunset_sanitize_twitter_handler($input){
+    $output = sanitize_text_field($input);
+    $output = str_replace('@','',$output);
+    return $output;
 }
