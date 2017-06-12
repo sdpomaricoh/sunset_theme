@@ -81,6 +81,7 @@ function sunset_custom_settings() {
     //Register the settings group
 	register_setting('sunset-settings-group', 'first_name');
 	register_setting('sunset-settings-group', 'last_name');
+    register_setting('sunset-settings-group', 'user_description');
     register_setting('sunset-settings-group', 'twitter_handler', 'sunset_sanitize_twitter_handler');
     register_setting('sunset-settings-group', 'facebook_handler');
     register_setting('sunset-settings-group', 'github_handler');
@@ -100,6 +101,14 @@ function sunset_custom_settings() {
         'sunset_sidebar_name', // Callback fuction
         'sunset_theme', // Page
         'sunset-sidebar-options' // Setting section
+    );
+
+    add_settings_field(
+        'sidebar-description',
+        'Description Handler',
+        'sunset_sidebar_description',
+        'sunset_theme',
+        'sunset-sidebar-options'
     );
 
     add_settings_field(
@@ -144,11 +153,19 @@ function sunset_sidebar_name(){
 }
 
 /**
+ * generate the description field
+ */
+function sunset_sidebar_description(){
+    $userDescription= get_option('user_description');
+    echo "<input type='text' name='user_description' value='".$userDescription."' placeholder='Description'><p class='description'>write something smart</p>";
+}
+
+/**
  * Generate the twitter input field
  */
 function sunset_sidebar_twitter(){
     $twitterHandler= get_option('twitter_handler');
-echo "<input type='text' name='twitter_handler' value='".$twitterHandler."' placeholder='Twitter Username'><p class='description'>Input your twitter username without the @ character</p>";
+    echo "<input type='text' name='twitter_handler' value='".$twitterHandler."' placeholder='Twitter Username'><p class='description'>Input your twitter username without the @ character</p>";
 }
 
 
