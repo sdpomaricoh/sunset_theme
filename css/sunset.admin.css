@@ -1,0 +1,42 @@
+/**
+ * @package Sunet Theme
+ * @author Sergio Pomárico
+ * @version 1.0.0
+ */
+
+/* =============================================================================
+// 1. Preview Sidebar
+// -----------------------------------------------------------------------------*/
+
+.sunset-general-form, .sunset-sidebar-preview{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.sunset-sidebar-preview{
+    width: 280px;
+    background-color: #1f1f1f;
+    padding: 20px;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.sunset-sidebar{
+    display: block;
+    text-align: center;
+}
+
+h1.sunset-username, h2.sunset-description{
+    color: #fff;
+    font-weight: 100;
+}
+
+h1.sunset-username{
+    font-size: 1.5em;
+    margin: 0 0 10px;
+}
+
+h2.sunset-description{
+    font-size: .8em;
+    margin: 0 0 20px;
+}

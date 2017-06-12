@@ -10,6 +10,10 @@
  * @version 1.0.0
  */
 
+/**
+ * Load the custom css and javascript
+ */
+require_once('inc/enqueue.php');
 
 /**
  * Load admin functions
