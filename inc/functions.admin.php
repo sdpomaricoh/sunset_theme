@@ -79,6 +79,7 @@ add_action( 'admin_init', 'sunset_custom_settings' );
 function sunset_custom_settings() {
 
     //Register the settings group
+    register_setting('sunset-settings-group', 'profile_picture');
 	register_setting('sunset-settings-group', 'first_name');
 	register_setting('sunset-settings-group', 'last_name');
     register_setting('sunset-settings-group', 'user_description');
@@ -92,6 +93,15 @@ function sunset_custom_settings() {
         'Sidebar Option', // Title
         'sunset_sidebar_options', // Callback function
         'sunset_theme' // Page
+    );
+
+    //add button to load profile picture
+    add_settings_field(
+        'sidebar-profile-picture', //Custom Id
+        'Profile Picture', // Title
+        'sunset_profile_picture', // Callback fuction
+        'sunset_theme', // Page
+        'sunset-sidebar-options' // Setting section
     );
 
     //add first name field
@@ -141,6 +151,14 @@ function sunset_custom_settings() {
  */
 function sunset_sidebar_options() {
 	echo 'Customize your Sidebar Information';
+}
+
+/**
+ * create the upload button
+ */
+function sunset_profile_picture(){
+    $picture = get_option('profile_picture');
+    echo "<input type='hidden' name='profile_picture' id='profile-picture' value='".$picture."'><input type='button' value='Upload Profile Picture' id='upload-button' class='button button-secondary'>";
 }
 
 /**
