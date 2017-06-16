@@ -11,14 +11,14 @@
  */
 
 
-// 1. Add Admin custom page for the theme
+// 1. Add custom menu page for the theme
 // -----------------------------------------------------------------------------
 
 //load theme menu on admin wordpress hook
 add_action( 'admin_menu', 'sunset_add_admin_page' );
 
 /**
- * add a custom admin page for the theme
+ * add a custom menu for the theme
  */
 function sunset_add_admin_page(){
 
@@ -37,7 +37,7 @@ function sunset_add_admin_page(){
     add_submenu_page(
         'sunset_theme', //Page
         'Sunset Theme Options', //Title
-        'General', //Submenu name shown
+        'Sidebar', //Submenu name shown
         'manage_options', //Capability
         'sunset_theme', //menu slug
         'sunset_create_admin_page' //Callback function
@@ -52,6 +52,15 @@ function sunset_add_admin_page(){
         'sunset_theme_css', //menu slug
         'sunset_theme_css_setting' //Callback function
     );
+
+    add_submenu_page(
+        'sunset_theme',
+        'Sunset Theme Options',
+        'Options',
+        'manage_options',
+        'sunset_theme_options',
+        'sunset_theme_suport_page'
+    );
 }
 
 /**
@@ -62,10 +71,16 @@ function sunset_create_admin_page(){
 }
 
 /**
- * generate setting page for the theme
+ * generate css setting page for the theme
  */
 function sunset_theme_css_setting(){}
 
+/**
+ * generate setting suport theme page
+ */
+function sunset_theme_suport_page(){
+    require_once(get_template_directory().'/inc/templates/sunset-support.php');
+}
 
 // 2. Add Custom setting for the theme
 // -----------------------------------------------------------------------------
@@ -78,14 +93,16 @@ add_action( 'admin_init', 'sunset_custom_settings' );
  */
 function sunset_custom_settings() {
 
+// ------------------------------- Sidebar -------------------------------------
+
     //Register the settings group
-    register_setting('sunset-settings-group', 'profile_picture');
-	register_setting('sunset-settings-group', 'first_name');
-	register_setting('sunset-settings-group', 'last_name');
-    register_setting('sunset-settings-group', 'user_description');
-    register_setting('sunset-settings-group', 'twitter_handler', 'sunset_sanitize_twitter_handler');
-    register_setting('sunset-settings-group', 'facebook_handler');
-    register_setting('sunset-settings-group', 'github_handler');
+    register_setting('sunset-sidebar-group', 'profile_picture');
+	register_setting('sunset-sidebar-group', 'first_name');
+	register_setting('sunset-sidebar-group', 'last_name');
+    register_setting('sunset-sidebar-group', 'user_description');
+    register_setting('sunset-sidebar-group', 'twitter_handler', 'sunset_sanitize_twitter_handler');
+    register_setting('sunset-sidebar-group', 'facebook_handler');
+    register_setting('sunset-sidebar-group', 'github_handler');
 
     // add section of the page
 	add_settings_section(
@@ -104,7 +121,7 @@ function sunset_custom_settings() {
         'sunset-sidebar-options' // Setting section
     );
 
-    //add first name field
+    //add full name field
     add_settings_field(
         'sidebar-name', //Custom Id
         'Full Name', // Title
@@ -113,14 +130,16 @@ function sunset_custom_settings() {
         'sunset-sidebar-options' // Setting section
     );
 
+    //add the description field
     add_settings_field(
-        'sidebar-description',
+        'sidebar-sunset-description',
         'Description Handler',
         'sunset_sidebar_description',
         'sunset_theme',
         'sunset-sidebar-options'
     );
 
+    //add twitter username field
     add_settings_field(
         'sidebar-twitter',
         'Twitter Handler',
@@ -129,6 +148,7 @@ function sunset_custom_settings() {
         'sunset-sidebar-options'
     );
 
+    //add facebook url field
     add_settings_field(
         'sidebar-facebook',
         'Facebook Handler',
@@ -144,10 +164,16 @@ function sunset_custom_settings() {
         'sunset_theme',
         'sunset-sidebar-options'
     );
+
+    // -------------------------------   CSS  -------------------------------------
+
+
+    // -------------------------------- Support -----------------------------------
 }
 
+
 /**
- * Generate the section description
+ * Generate the sidebar section description
  */
 function sunset_sidebar_options() {
 	echo 'Customize your Sidebar Information';
@@ -188,7 +214,7 @@ function sunset_sidebar_twitter(){
 
 
 /**
- * Generate the twitter input field
+ * Generate the facebook input field
  */
 function sunset_sidebar_facebook(){
     $facebookHandler = get_option('facebook_handler');
@@ -196,7 +222,7 @@ function sunset_sidebar_facebook(){
 }
 
 /**
- * Generate the twitter input field
+ * Generate the github input field
  */
 function sunset_sidebar_github(){
     $githubHandler= get_option('github_handler');

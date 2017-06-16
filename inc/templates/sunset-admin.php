@@ -1,7 +1,7 @@
-<h1>Sunset Theme Options</h1>
+<h1>Sunset Sidebar Options</h1>
 <?php settings_errors(); ?>
 <?php
-	$profilePicture = esc_attr(get_option('first_name'));
+	$profilePicture = esc_attr(get_option('profile_picture'));
 	$firstName = esc_attr(get_option('first_name'));
 	$lastName = esc_attr(get_option('last_name'));
 	$fullNane = $firstName.' '.$lastName;
