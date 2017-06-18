@@ -36,12 +36,21 @@ function sunset_add_admin_page(){
     // add general menu page (is the same page as the main menu)
     add_submenu_page(
         'sunset_theme', //Page
-        'Sunset Theme Options', //Title
+        'Sunset Sidebar Options', //Title
         'Sidebar', //Submenu name shown
         'manage_options', //Capability
         'sunset_theme', //menu slug
         'sunset_create_admin_page' //Callback function
     );
+
+	add_submenu_page(
+		'sunset_theme',
+		'Sunset Theme Options',
+		'Options',
+		'manage_options',
+		'sunset_theme_options',
+		'sunset_theme_suport_page'
+	);
 
     // add css menu page
     add_submenu_page(
@@ -51,15 +60,6 @@ function sunset_add_admin_page(){
         'manage_options', //Capability
         'sunset_theme_css', //menu slug
         'sunset_theme_css_setting' //Callback function
-    );
-
-    add_submenu_page(
-        'sunset_theme',
-        'Sunset Theme Options',
-        'Options',
-        'manage_options',
-        'sunset_theme_options',
-        'sunset_theme_suport_page'
     );
 }
 
@@ -169,8 +169,27 @@ function sunset_custom_settings() {
 
 
     // -------------------------------- Support -----------------------------------
+
+    register_setting( 'sunset-support-group', 'post_formats', 'sunset_post_format_callback' );
+
+    add_settings_section(
+        'sunset-theme-options',
+        'Theme Options',
+        'sunset_theme_support_options',
+        'sunset_theme_options'
+    );
+
+    add_settings_field(
+        'post-format', //Custom id
+        'Post Formats', //Title
+        'sunset_post_format', //Callback function
+        'sunset_theme_options', //Page
+        'sunset-theme-options' //Section
+    );
+
 }
 
+// ------------------------------- Sidebar -------------------------------------
 
 /**
  * Generate the sidebar section description
@@ -183,7 +202,7 @@ function sunset_sidebar_options() {
  * create the upload button
  */
 function sunset_profile_picture(){
-    $picture = get_option('profile_picture');
+    $picture = esc_attr(get_option('profile_picture'));
     echo "<input type='hidden' name='profile_picture' id='profile-picture' value='".$picture."'><input type='button' value='Upload Profile Picture' id='upload-button' class='button button-secondary'>";
 }
 
@@ -191,8 +210,8 @@ function sunset_profile_picture(){
  * Generate the first name field
  */
 function sunset_sidebar_name(){
-    $firstName = get_option('first_name');
-    $lastName = get_option('last_name');
+    $firstName = esc_attr(get_option('first_name'));
+    $lastName = esc_attr(get_option('last_name'));
     echo "<input type='text' name='first_name' value='".$firstName."' placeholder='First Name' ><input type='text' name='last_name' value='".$lastName."' placeholder='Last Name' >";
 }
 
@@ -200,7 +219,7 @@ function sunset_sidebar_name(){
  * generate the description field
  */
 function sunset_sidebar_description(){
-    $userDescription= get_option('user_description');
+    $userDescription= esc_attr(get_option('user_description'));
     echo "<input type='text' name='user_description' value='".$userDescription."' placeholder='Description'><p class='description'>write something smart</p>";
 }
 
@@ -208,7 +227,7 @@ function sunset_sidebar_description(){
  * Generate the twitter input field
  */
 function sunset_sidebar_twitter(){
-    $twitterHandler= get_option('twitter_handler');
+    $twitterHandler= esc_attr(get_option('twitter_handler'));
     echo "<input type='text' name='twitter_handler' value='".$twitterHandler."' placeholder='Twitter Username'><p class='description'>Input your twitter username without the @ character</p>";
 }
 
@@ -217,7 +236,7 @@ function sunset_sidebar_twitter(){
  * Generate the facebook input field
  */
 function sunset_sidebar_facebook(){
-    $facebookHandler = get_option('facebook_handler');
+    $facebookHandler = esc_attr(get_option('facebook_handler'));
     echo "<input type='url' name='facebook_handler' value='".$facebookHandler."' placeholder='Facebook Url'>";
 }
 
@@ -225,8 +244,36 @@ function sunset_sidebar_facebook(){
  * Generate the github input field
  */
 function sunset_sidebar_github(){
-    $githubHandler= get_option('github_handler');
+    $githubHandler= esc_attr(get_option('github_handler'));
     echo "<input type='url' name='github_handler' value='".$githubHandler."' placeholder='Github Url'>";
+}
+
+// -------------------------------- Support -----------------------------------
+
+function sunset_post_format_callback($input){
+    return $input;
+}
+
+
+/**
+ * Generate the theme options description
+ */
+function sunset_theme_support_options(){
+    echo 'Activate o deactivate specific theme support options';
+}
+
+function sunset_post_format(){
+
+    $postFormats = array('aside','gallery','link','image','quote','status','video','audio','chat');
+    $output = '';
+    $options = get_option('post_formats');
+
+    foreach ($postFormats as $format) {
+        $checked = (@$options[$format] == 1 ? 'checked' : '');
+        $output .= '<label><input type="checkbox" name="post_formats['.$format.']" value="1" id="'.$format.'" '.$checked.'> '.$format.'</label><br/>';
+    }
+
+    echo $output;
 }
 
 // 3. Sanitization Settings

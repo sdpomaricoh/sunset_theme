@@ -19,3 +19,4 @@ require_once('inc/enqueue.php');
  * Load admin functions
  */
 require_once('inc/functions.admin.php');
+require_once('inc/theme.support.php');
