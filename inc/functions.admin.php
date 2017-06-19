@@ -61,6 +61,16 @@ function sunset_add_admin_page(){
         'sunset_theme_css', //menu slug
         'sunset_theme_css_setting' //Callback function
     );
+
+    // add contact menu page
+    add_submenu_page(
+        'sunset_theme',
+        'Contact Options',
+        'Contact',
+        'manage_options',
+        'sunset_theme_contact_options',
+        'sunset_theme_contact_page'
+    );
 }
 
 /**
@@ -80,6 +90,13 @@ function sunset_theme_css_setting(){}
  */
 function sunset_theme_suport_page(){
     require_once(get_template_directory().'/inc/templates/sunset-support.php');
+}
+
+/**
+ * generate contact form theme page
+ */
+function sunset_theme_contact_page(){
+    require_once(get_template_directory().'/inc/templates/sunset.contact.php');
 }
 
 // 2. Add Custom setting for the theme
@@ -173,12 +190,21 @@ function sunset_custom_settings() {
     register_setting( 'sunset-support-group', 'post_formats');
     register_setting( 'sunset-support-group', 'custom_header');
     register_setting( 'sunset-support-group', 'custom_background');
+    register_setting( 'sunset-support-group', 'custom_background');
+    register_setting( 'sunset-contact-options', 'activate_form');
 
     add_settings_section(
         'sunset-theme-options',
         'Theme Options',
         'sunset_theme_support_options',
         'sunset_theme_options'
+    );
+
+    add_settings_section(
+        'sunset-contact-options',
+        'Contact Options',
+        'sunset_contact_options',
+        'sunset_theme_contact_options'
     );
 
     add_settings_field(
@@ -203,6 +229,14 @@ function sunset_custom_settings() {
         'sunset_custom_background', //Callback function
         'sunset_theme_options', //Page
         'sunset-theme-options' //Section
+    );
+
+    add_settings_field(
+        'activate-form', //Custom id
+        'Activate Contact Form', //Title
+        'sunset_activate_form', //Callback function
+        'sunset_theme_contact_options', //Page
+        'sunset-contact-options' //Section
     );
 
 }
@@ -315,6 +349,17 @@ function sunset_custom_background(){
     $options = get_option('custom_background');
     $checked = (@$options == 1 ? 'checked' : '');
     $output  = '<label><input type="checkbox" name="custom_background" value="1" id="custom_background" '.$checked.'> Activate custom background</label><br/>';
+    echo $output;
+}
+
+function sunset_contact_options(){
+    echo "Activate o deactivate the build-it contact form";
+}
+
+function sunset_activate_form(){
+    $options = get_option('activate_form');
+    $checked = (@$options == 1 ? 'checked' : '');
+    $output  = '<input type="checkbox" name="activate_form" value="1" id="activate_form" '.$checked.'>';
     echo $output;
 }
 

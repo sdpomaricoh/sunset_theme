@@ -20,3 +20,9 @@ require_once('inc/enqueue.php');
  */
 require_once('inc/functions.admin.php');
 require_once('inc/theme.support.php');
+
+
+/**
+ * Load the custom post types
+ */
+require_once('inc/custom.posts.type.php');
