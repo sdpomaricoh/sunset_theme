@@ -171,6 +171,8 @@ function sunset_custom_settings() {
     // -------------------------------- Support -----------------------------------
 
     register_setting( 'sunset-support-group', 'post_formats');
+    register_setting( 'sunset-support-group', 'custom_header');
+    register_setting( 'sunset-support-group', 'custom_background');
 
     add_settings_section(
         'sunset-theme-options',
@@ -183,6 +185,22 @@ function sunset_custom_settings() {
         'post-format', //Custom id
         'Post Formats', //Title
         'sunset_post_format', //Callback function
+        'sunset_theme_options', //Page
+        'sunset-theme-options' //Section
+    );
+
+    add_settings_field(
+        'custom-header', //Custom id
+        'Custom Header', //Title
+        'sunset_custom_header', //Callback function
+        'sunset_theme_options', //Page
+        'sunset-theme-options' //Section
+    );
+
+    add_settings_field(
+        'custom-background', //Custom id
+        'Custom Background', //Title
+        'sunset_custom_background', //Callback function
         'sunset_theme_options', //Page
         'sunset-theme-options' //Section
     );
@@ -277,6 +295,26 @@ function sunset_post_format(){
         $output .= '<label><input type="checkbox" name="post_formats['.$format.']" value="1" id="'.$format.'" '.$checked.'> '.$format.'</label><br/>';
     }
 
+    echo $output;
+}
+
+/**
+ * Generate the custom header checkbox
+ */
+function sunset_custom_header(){
+    $options = get_option('custom_header');
+    $checked = (@$options == 1 ? 'checked' : '');
+    $output  = '<label><input type="checkbox" name="custom_header" value="1" id="custom_header" '.$checked.'> Activate custom header</label><br/>';
+    echo $output;
+}
+
+/**
+ * Generate the custom background checkbox
+ */
+function sunset_custom_background(){
+    $options = get_option('custom_background');
+    $checked = (@$options == 1 ? 'checked' : '');
+    $output  = '<label><input type="checkbox" name="custom_background" value="1" id="custom_background" '.$checked.'> Activate custom background</label><br/>';
     echo $output;
 }
 

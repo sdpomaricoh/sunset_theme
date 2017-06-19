@@ -23,3 +23,13 @@ foreach ($postFormats as $format) {
 if(!empty($options)){
     add_theme_support('post-formats',$output);
 }
+
+$header = get_option('custom_header');
+if (!empty($header)) {
+	add_theme_support('custom-header');
+}
+
+$background = get_option('custom_background');
+if (!empty($header)) {
+	add_theme_support('custom-background');
+}
