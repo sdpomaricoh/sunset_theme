@@ -170,7 +170,7 @@ function sunset_custom_settings() {
 
     // -------------------------------- Support -----------------------------------
 
-    register_setting( 'sunset-support-group', 'post_formats', 'sunset_post_format_callback' );
+    register_setting( 'sunset-support-group', 'post_formats');
 
     add_settings_section(
         'sunset-theme-options',
@@ -202,8 +202,14 @@ function sunset_sidebar_options() {
  * create the upload button
  */
 function sunset_profile_picture(){
+
     $picture = esc_attr(get_option('profile_picture'));
-    echo "<input type='hidden' name='profile_picture' id='profile-picture' value='".$picture."'><input type='button' value='Upload Profile Picture' id='upload-button' class='button button-secondary'>";
+
+    if(empty($picture)){
+        echo "<input type='hidden' name='profile_picture' id='profile-picture' value=''><input type='button' value='Upload Profile Picture' id='upload-button' class='button button-secondary'>";
+    }else{
+        echo "<input type='hidden' name='profile_picture' id='profile-picture' value='".$picture."'><input type='button' value='Replace Profile Picture' id='upload-button' class='button button-secondary'><input type='button' id='remove-picture' class='button button-secondary' value='Remove Profile Picture'>";
+    }
 }
 
 /**
@@ -250,11 +256,6 @@ function sunset_sidebar_github(){
 
 // -------------------------------- Support -----------------------------------
 
-function sunset_post_format_callback($input){
-    return $input;
-}
-
-
 /**
  * Generate the theme options description
  */
@@ -262,6 +263,9 @@ function sunset_theme_support_options(){
     echo 'Activate o deactivate specific theme support options';
 }
 
+/**
+ * Generate the post options checkbox
+ */
 function sunset_post_format(){
 
     $postFormats = array('aside','gallery','link','image','quote','status','video','audio','chat');

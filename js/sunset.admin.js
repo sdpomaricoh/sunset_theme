@@ -25,4 +25,16 @@ jQuery(document).ready(function($){
         mediaUploader.open();
     });
 
+    $('#remove-picture').click(function(e){
+
+        e.preventDefault();
+        var answer = confirm('Are you sure to want to remove your profile picture');
+
+        if(answer == true){
+            $('#profile-picture').val('');
+            $('.sunset-general-form').submit();
+        }
+        return;
+    });
+
 });

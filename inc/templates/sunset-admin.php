@@ -19,7 +19,7 @@
 	</div>
 </div>
 <form method="post" action="options.php" class="sunset-general-form">
-	<?php settings_fields( 'sunset-settings-group' ); ?>
+	<?php settings_fields( 'sunset-sidebar-group' ); ?>
 	<?php do_settings_sections( 'sunset_theme' ); ?>
-	<?php submit_button(); ?>
+	<?php submit_button('Save Changes','primary','btnSubmit'); ?>
 </form>
