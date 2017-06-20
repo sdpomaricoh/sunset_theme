@@ -56,7 +56,7 @@ function sunset_add_admin_page(){
     add_submenu_page(
         'sunset_theme', //Page
         'Sunset CSS Options',//Title
-        'Custom CSS',//Submenu name shown
+        'CSS',//Submenu name shown
         'manage_options', //Capability
         'sunset_theme_css', //menu slug
         'sunset_theme_css_setting' //Callback function
@@ -83,7 +83,9 @@ function sunset_create_admin_page(){
 /**
  * generate css setting page for the theme
  */
-function sunset_theme_css_setting(){}
+function sunset_theme_css_setting(){
+    require_once(get_template_directory().'/inc/templates/sunset.custom.css.php');
+}
 
 /**
  * generate setting suport theme page
@@ -182,10 +184,26 @@ function sunset_custom_settings() {
         'sunset-sidebar-options'
     );
 
-    // -------------------------------   CSS  -------------------------------------
+// -------------------------------   CSS   -------------------------------------
 
+    register_setting( 'sunset-custom-css-options-group', 'sunset_css','sunset_sanitize_custom_css');
 
-    // -------------------------------- Support -----------------------------------
+    add_settings_section(
+        'sunset-custom-css-options-group',
+        'Theme Custom CSS',
+        'sunset_custom_css_section',
+        'sunset_theme_css'
+    );
+
+    add_settings_field(
+        'custom-css',
+        'Insert your custom CSS',
+        'sunset_custom_css_field',
+        'sunset_theme_css',
+        'sunset-custom-css-options-group'
+    );
+
+// -------------------------------- Support -----------------------------------
 
     register_setting( 'sunset-support-group', 'post_formats');
     register_setting( 'sunset-support-group', 'custom_header');
@@ -306,7 +324,7 @@ function sunset_sidebar_github(){
     echo "<input type='url' name='github_handler' value='".$githubHandler."' placeholder='Github Url'>";
 }
 
-// -------------------------------- Support -----------------------------------
+// -------------------------------- Support ------------------------------------
 
 /**
  * Generate the theme options description
@@ -363,6 +381,26 @@ function sunset_activate_form(){
     echo $output;
 }
 
+
+// -------------------------------   CSS   -------------------------------------
+
+/**
+ * [sunset_custom_css_section description]
+ */
+function sunset_custom_css_section(){
+    echo 'Customize your theme with own CSS';
+}
+
+/**
+ * [sunset_custom_css_field description]
+ */
+function sunset_custom_css_field(){
+    $css = get_option('sunset_css');
+    $css = (!empty($css) ? $css : '/* Sunset Theme Custom CSS*/');
+    echo '<div id="customCSS">'.$css.'</div><textarea name="sunset_css" id="sunset_css" style="display:none;visibility:hidden">'.$css.'</textarea>';
+}
+
+
 // 3. Sanitization Settings
 // -----------------------------------------------------------------------------
 
@@ -374,5 +412,14 @@ function sunset_activate_form(){
 function sunset_sanitize_twitter_handler($input){
     $output = sanitize_text_field($input);
     $output = str_replace('@','',$output);
+    return $output;
+}
+
+/**
+ * sanitize the custom css input field
+ * @param [Objet] $input setting input field
+ */
+function sunset_sanitize_custom_css($input){
+    $output = sanitize_textarea_field($input);
     return $output;
 }
