@@ -97,6 +97,14 @@ function sunset_load_scripts(){
         'all'
     );
 
+    wp_enqueue_style(
+        'raleway',
+        'https://fonts.googleapis.com/css?family=Raleway:200,300,400,500',
+        array(),
+        false,
+        'all'
+    );
+
     wp_deregister_script('jquery');
 
     wp_register_script(

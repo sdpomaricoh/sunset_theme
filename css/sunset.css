@@ -1,0 +1,98 @@
+/**
+ * @package sunet_theme
+ * @author Sergio Pomárico
+ * @version 1.0.0
+ */
+
+/* =============================================================================
+// 1. Helpers
+// -----------------------------------------------------------------------------*/
+
+body{
+	font-family: 'Raleway', sans-serif;
+	font-size: 16px;
+}
+
+.bg-cover{
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+}
+
+.vertical-center{
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+/*                                  Icon font                                   */	
+/* -----------------------------------------------------------------------------*/
+@font-face {
+	font-family: 'sunset';
+	src:
+		url('../fonts/sunset.ttf?n96dsg') format('truetype'),
+		url('../fonts/sunset.woff?n96dsg') format('woff'),
+		url('../fonts/sunset.svg?n96dsg#sunset') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.sunset {
+	font-family: 'sunset' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.sunset-audio:before {content: "\e900";}
+.sunset-chevron-left:before {content: "\e901";}
+.sunset-chevron-right:before {content: "\e902";}
+.sunset-close:before {content: "\e903";}
+.sunset-comment:before {content: "\e904";}
+.sunset-link:before {content: "\e905";}
+.sunset-loading:before {content: "\e906";}
+.sunset-logo:before {content: "\e907";}
+.sunset-menu:before {content: "\e908";}
+.sunset-pencil:before {content: "\e909";}
+.sunset-pics:before {content: "\e90a";}
+.sunset-search:before {content: "\e90b";}
+.sunset-share:before {content: "\e90c";}
+.sunset-tag:before {content: "\e90d";}
+.sunset-video:before {content: "\e90e";}
+
+/* =============================================================================
+// 2. Header 
+// -----------------------------------------------------------------------------*/
+
+.header-container{
+	display: block;
+	height: 325px;
+	position: relative;
+}
+
+.header-content{
+	height: 100%;
+	text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+}
+
+.site-title{
+	color: white;
+	font-size: 6em;
+	margin: 0;
+}
+
+.site-description{
+	color: white;
+	font-size: 1em;
+	margin-top: 0.4em;
+}
+
+.sunset-logo{
+
+}
