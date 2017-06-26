@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------
 
 /**
- * @package Sunet Theme
+ * @package sunset_theme
  * @author Sergio Pomárico
  * @version 1.0.0
  */
