@@ -11,6 +11,11 @@
  */
 
 /**
+ * Clean up the number of version of wordpress and scripts files
+ */
+require_once('inc/cleanup.php');
+
+/**
  * Load the custom css and javascript
  */
 require_once('inc/enqueue.php');
