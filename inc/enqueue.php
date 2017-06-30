@@ -90,6 +90,22 @@ function sunset_load_scripts(){
     );
 
     wp_enqueue_style(
+        'animate',
+        get_template_directory_uri().'/css/animate.min.css',
+        array(),
+        '3.3.7',
+        'all'
+    );
+
+    wp_enqueue_style(
+        'bootstrap-dropdownhover',
+        get_template_directory_uri().'/css/bootstrap-dropdownhover.min.css',
+        array(),
+        '3.3.7',
+        'all'
+    );   
+
+    wp_enqueue_style(
         'sunset',
         get_template_directory_uri().'/css/sunset.css',
         array(),
@@ -122,6 +138,14 @@ function sunset_load_scripts(){
         get_template_directory_uri().'/js/bootstrap.min.js',
         array('jquery'),
         '3.3.7',
+        true
+    );
+
+    wp_enqueue_script(
+        'bootstrap-dropdownhover',
+        get_template_directory_uri().'/js/bootstrap-dropdownhover.min.js',
+        array('jquery','bootstrap'),
+        '1.0.0',
         true
     );
 }

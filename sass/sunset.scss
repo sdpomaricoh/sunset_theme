@@ -26,6 +26,25 @@ body{
 	justify-content: center;
 }
 
+/*                                     Mixin                                    */	
+/* -----------------------------------------------------------------------------*/
+
+@mixin animate ( $attr, $time){
+    -webkit-transition: $attr $time ease;
+    -moz-transition: $attr $time ease;
+    -ms-transition: $attr $time ease;
+    -o-transition: $attr $time ease;
+    transition: $attr $time ease;
+}
+
+@mixin transform( $val ) {
+    -webkit-transform: $val;
+    -moz-transform: $val;
+    -ms-transform: $val;
+    -o-transform: $val;
+    transform: $val;
+}
+
 /*                                  Icon font                                   */	
 /* -----------------------------------------------------------------------------*/
 @font-face {
@@ -77,7 +96,7 @@ body{
 }
 
 .header-content{
-	height: 100%;
+	height: 85%;
 	text-shadow: 0 1px 2px rgba(0,0,0,0.4);
 }
 
@@ -91,4 +110,97 @@ body{
 	color: white;
 	font-size: 1em;
 	margin-top: 0.4em;
+}
+
+/* =============================================================================
+// 3. Navbar 
+// -----------------------------------------------------------------------------*/
+
+.navbar-sunset{
+	background-color: rgba(255,255,255,0.2);
+	border: none;
+	border-radius: 0;
+	border-top: 1px solid rgba(255,255,255,0.2);
+	min-height: auto;
+	margin-bottom: 0;
+	text-align: center;
+	.navbar-nav{
+		float: none;
+		li{	
+			display: inline-block;
+			float: none;
+			&.active{
+				a { 
+					opacity: 1; background-color: rgba(0,0,0,0.1)!important;
+					&:after { 
+						@include transform( translateY(10px) ); opacity: 0!important;
+					}
+					&:hover,
+					&:focus,
+					&:visited { 
+						background-color: rgba(0,0,0,0.1)!important;
+						&:after {
+							@include transform( translateY(10px) ); opacity: 0!important; 
+						}
+					}	
+				}
+			}
+			a{
+				background: none;
+				color: white;
+				font-size: 0.9em;
+				letter-spacing: 0.05em;
+				opacity: 0.7;
+				text-transform: uppercase;
+				&:hover, &:focus, &:visited, &:active{
+					@include animate(opacity,400ms);
+					background: none;
+					color: white;
+					opacity: 1;
+					&:after{
+						@include transform(translateY(0px));
+						opacity: 1
+					}
+				}
+				&:after{
+					@include animate(all,450ms);
+					@include transform(translateY(-10px));
+					background-color: white;
+					bottom: 12px;
+					content: '';
+					display: block;
+					height: 2px;
+					left: 15px;
+					position: absolute;
+					opacity: 0;
+					right: 15px;
+				}
+			}
+			ul.dropdown-menu { 
+				border: 0; border-radius: 0; background: rgba(0,0,0,0.75); 
+				li { 
+					display: block; 
+					a {
+						&:hover,
+						&:focus,
+						&:visited { 
+							background: rgba(0,0,0,0.25)!important; color: #fff;
+						}
+					}
+				}
+			}
+		}	
+	}
+}
+.dropdown-menu{
+	@include animate(opacity,500ms);
+	min-width: 120px;
+}
+.dropdown{
+	&:hover {
+		.dropdown-menu {
+    		display: block;
+    		margin-top: 0;
+    	} 
+	}
 }

@@ -31,3 +31,8 @@ require_once('inc/theme.support.php');
  * Load the custom post types
  */
 require_once('inc/custom.posts.type.php');
+
+/**
+ * Load the custom post types
+ */
+require_once('inc/walker.php');
