@@ -24,10 +24,11 @@
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12">
-				<header class="header-container text-center bg-cover" style="background-image: url(<?php header_image();?>)">
+<!-- 		<div class="row"> -->
+	<header class="header-container text-center bg-cover" style="background-image: url(<?php header_image();?>)">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
 					<div class="header-content vertical-center">
 						<h1 class="site-title">
 							<span class="sunset sunset-logo"></span>
@@ -35,19 +36,19 @@
 						</h1>
 						<h2 class="site-description"><?php bloginfo('description'); ?></h2>
 					</div><!-- .header-content -->
-					<div class="nav-container">
-						<nav class="navbar navbar-default navbar-sunset">
-							<?php wp_nav_menu(
-								array(
-									'theme_location'=>'primary',
-									'container'=>false,
-									'menu_class' => 'nav navbar-nav',
-									'walker' => new Walker_Nav_Primary
-								)
-							); ?>
-						</nav>
-					</div><!-- .nav-container -->
-				</header><!-- .header-container -->
-			</div><!-- .col-xs-12 -->
-		</div><!-- .row -->
-	</div><!-- .container-fluid -->
+				</div><!-- .col-xs-12 -->
+			</div><!-- .row -->
+		</div><!-- .container -->
+		<div class="nav-container">
+			<nav class="navbar navbar-default navbar-sunset">
+				<?php wp_nav_menu(
+					array(
+						'theme_location'=>'primary',
+						'container'=>false,
+						'menu_class' => 'nav navbar-nav',
+						'walker' => new Walker_Nav_Primary
+					)
+				); ?>
+			</nav>
+		</div><!-- .nav-container -->
+	</header><!-- .header-container -->

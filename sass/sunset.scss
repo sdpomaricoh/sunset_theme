@@ -5,17 +5,34 @@
  */
 
 /* =============================================================================
+// 1. Imports
+// -----------------------------------------------------------------------------*/
+
+@import 'base/variables';
+@import 'base/mixins';
+@import 'base/fonts';
+
+/* =============================================================================
 // 1. Helpers
 // -----------------------------------------------------------------------------*/
 
-body{
-	font-family: 'Raleway', sans-serif;
+body, html{
+	font-family: $body-font;
 	font-size: 16px;
 }
 
+a{	
+	color: $primary-color;
+	&:hover,
+	&:focus{
+		color: $dark-gray;
+		text-decoration: none;
+	}
+}
+
 .bg-cover{
-	background-repeat: no-repeat;
 	background-position: center center;
+	background-repeat: no-repeat;
 	background-size: cover;
 }
 
@@ -25,65 +42,6 @@ body{
 	flex-direction: column;
 	justify-content: center;
 }
-
-/*                                     Mixin                                    */	
-/* -----------------------------------------------------------------------------*/
-
-@mixin animate ( $attr, $time){
-    -webkit-transition: $attr $time ease;
-    -moz-transition: $attr $time ease;
-    -ms-transition: $attr $time ease;
-    -o-transition: $attr $time ease;
-    transition: $attr $time ease;
-}
-
-@mixin transform( $val ) {
-    -webkit-transform: $val;
-    -moz-transform: $val;
-    -ms-transform: $val;
-    -o-transform: $val;
-    transform: $val;
-}
-
-/*                                  Icon font                                   */	
-/* -----------------------------------------------------------------------------*/
-@font-face {
-	font-family: 'sunset';
-	src:
-		url('../fonts/sunset.ttf?n96dsg') format('truetype'),
-		url('../fonts/sunset.woff?n96dsg') format('woff'),
-		url('../fonts/sunset.svg?n96dsg#sunset') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-.sunset {
-	font-family: 'sunset' !important;
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-.sunset-audio:before {content: "\e900";}
-.sunset-chevron-left:before {content: "\e901";}
-.sunset-chevron-right:before {content: "\e902";}
-.sunset-close:before {content: "\e903";}
-.sunset-comment:before {content: "\e904";}
-.sunset-link:before {content: "\e905";}
-.sunset-loading:before {content: "\e906";}
-.sunset-logo:before {content: "\e907";}
-.sunset-menu:before {content: "\e908";}
-.sunset-pencil:before {content: "\e909";}
-.sunset-pics:before {content: "\e90a";}
-.sunset-search:before {content: "\e90b";}
-.sunset-share:before {content: "\e90c";}
-.sunset-tag:before {content: "\e90d";}
-.sunset-video:before {content: "\e90e";}
 
 /* =============================================================================
 // 2. Header 
@@ -97,12 +55,13 @@ body{
 
 .header-content{
 	height: 85%;
+	min-height: 275px;
 	text-shadow: 0 1px 2px rgba(0,0,0,0.4);
 }
 
 .site-title{
 	color: white;
-	font-size: 6em;
+	font-size: 6rem;
 	margin: 0;
 }
 
@@ -148,8 +107,8 @@ body{
 			a{
 				background: none;
 				color: white;
-				font-size: 0.9em;
-				letter-spacing: 0.05em;
+				font-size: 0.9rem;
+				letter-spacing: 0.05rem;
 				opacity: 0.7;
 				text-transform: uppercase;
 				&:hover, &:focus, &:visited, &:active{
@@ -202,5 +161,136 @@ body{
     		display: block;
     		margin-top: 0;
     	} 
+	}
+}
+
+/* =============================================================================
+// 3. Navbar 
+// -----------------------------------------------------------------------------*/
+article{
+	margin-bottom: 5rem;
+}
+h1{
+	color: $primary-color;
+	font-size: 3em;
+	font-weight: 200;
+	&.entry-title{
+		line-height: 1.5rem;
+		margin: 3rem 0 1.25rem;
+		padding: 0;
+		&:before, &:after{
+			content: '~';
+		}
+		&:before{
+			margin-right: 10px;
+		}
+		&:after{
+			margin-left: 10px;
+		}
+	}
+}
+.entry-meta{
+	color: $light-gray;
+	font-size: .8rem;
+	font-weight: 300;
+	margin-bottom: 1.25rem;
+	a{
+		@include animate(color,350ms);
+		color: $light-gray;
+		font-weight: 500;
+		&:hover{
+			color: $dark-gray;
+		}
+	}
+}
+.entry-content{
+	display: inline-block;
+}
+.standard-feature{
+	padding:0;
+	position:relative;
+	display: block;
+	&:after{
+		background-color: rgba(0,0,0,0.15);
+		bottom: 0;
+		box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
+		content: '';
+		display: block;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+.standard-feature-link{
+	display: inline-block;
+	margin: 0 15px;
+	position: relative;
+	&:hover, &:focus{
+		.standard-feature{
+			&:after{
+				@include animate(background-color, 350ms);
+				background-color: rgba(0,0,0,0);
+			}
+		}
+	}
+}
+
+.entry-excerpt { 
+	display: inline-block;
+	margin: 30px 0 16px;
+	p {
+		font-size: 1rem;
+		font-weight: 300;
+		letter-spacing: 0.02em;
+		line-height: 1.5em;
+	}
+}
+
+.button-container {
+	display: inline-block;
+	margin-bottom: 30px;
+}
+
+.btn-sunset { 
+	@include animate( all, 320ms );
+	background-color: transparent;
+	border: 1px solid $light-gray;
+	border-radius: 0;
+	color: $light-gray;
+	font-size: .9rem;
+	font-weight: 300; 
+	padding: 8px 12px;
+	text-transform: uppercase;
+	&:hover, &:focus {
+		color: #ffffff; border-color: $dark-gray; background-color: $dark-gray;
+	}
+}
+
+.entry-footer {
+	border-bottom: 4px solid $lighter-gray;
+	color: $light-gray;
+	display: inline-block;
+	padding: 10px 5px; 
+	text-transform: uppercase;
+	width: 100%;
+	a {
+		color: $light-gray; display: inline-block; font-size: 12px; 
+		&:hover,&:focus{
+			color: $dark-gray;
+		}
+	}
+	.tags{
+		.sunset{
+			margin-right: 10px;
+		}
+		a {
+			padding: 0 4px; 
+		}
+	}
+	.comments-link {
+		.sunset {
+			margin-left: 10px;
+		}
 	}
 }
