@@ -148,6 +148,14 @@ function sunset_load_scripts(){
         '1.0.0',
         true
     );
+
+    wp_enqueue_script(
+        'sunset-main',
+        get_template_directory_uri().'/js/sunset.main.js',
+        array('jquery'),
+        '1.0.0',
+        true
+    );
 }
 
 add_action( 'wp_enqueue_scripts','sunset_load_scripts');

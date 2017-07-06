@@ -14,7 +14,7 @@
 <?php get_header(); ?>
 <div id="primary" class="content-area">
 	<main class="site-main" role="main">
-		<div class="container">
+		<div class="container sunset-post-container">
 			<div class="row">
 			<?php if (have_posts()): ?>	
 				<?php while(have_posts()): the_post() ?>
@@ -22,6 +22,11 @@
 				<?php endwhile; ?>	
 			<?php endif ?>
 			</div><!-- .row -->
+		</div><!-- .container -->
+		<div class="container text-center">
+			<a class="btn btn-lg btn-sunset sunset-load-more" data-page="1" data-url='<?php echo admin_url("admin-ajax.php"); ?>'>
+				<i class="sunset sunset-loading"></i> Load More
+			</a>
 		</div><!-- .container -->
 	</main><!-- .site-main -->
 </div><!-- .primary -->

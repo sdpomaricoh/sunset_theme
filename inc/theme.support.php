@@ -84,7 +84,7 @@ function sunset_posted_footer(){
 		}else{
 			$comments = __('1 Comment');
 		}
-		$comments ='<a hrer="'.esc_url(get_comments_link()).'" class="comments-links">'.$comments.'<span class="sunset sunset-comment"></a>';
+		$comments ='<a hrer="'.esc_url(get_comments_link()).'" class="comments-link">'.$comments.'<span class="sunset sunset-comment"></a>';
 	}else{
 		$comments = __('Comments are closed');
 	}

@@ -36,3 +36,8 @@ require_once('inc/custom.posts.type.php');
  * Load the custom post types
  */
 require_once('inc/walker.php');
+
+/**
+ * Ajax load posr
+ */
+require_once('inc/ajax.php');
