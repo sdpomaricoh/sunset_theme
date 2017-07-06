@@ -2,27 +2,41 @@ jQuery(document).ready(function($){
 
 // 1. Ajax load post
 // -----------------------------------------------------------------------------
-	$(document).on('click','.sunset-load-more', function(){
-		var that = $(this);
-		var page = that.data('page');
-		var ajaxUrl = that.data('url');
-		var newPage = page+1;
 
-		$.ajax({
-			url: ajaxUrl,
-			type: 'post',
-			data: {
-				page: page,
-				action: 'sunset_load_more'
-			},
-			success: function(response){
-				that.data('page', newPage);
-				$('.sunset-post-container').append(response);
-			},
-			error: function(response){
-				console.log(response);
-			}
-		});
+var canBeLoaded = true,
+	bottomOffset = $('.sunset-footer').height()+1000;
+
+	$(window).scroll(function(){
+		
+		var input = $('.sunset-load-more');
+		var page = input.data('page');
+		var ajaxUrl = input.data('url');
+
+		if($(document).scrollTop() > ($(document).height() - bottomOffset ) && canBeLoaded == true ){
+			$.ajax({
+				url: ajaxUrl,
+				type: 'post',
+				data: {
+					page: page,
+					action: 'sunset_load_more'
+				},
+				beforeSend: function( xhr ){
+					canBeLoaded = false;
+					$('#load-more').addClass('loader');
+				},
+				success: function(response){
+					if(response){
+						$('.sunset-post-container > .row').append(response);
+						page++;
+						input.data('page', page);
+						canBeLoaded = true;
+						$('#load-more').removeClass('loader');
+					}else{
+						$('#load-more').removeClass('loader');
+					}
+				}
+			});
+		}
 	});
 
 });
