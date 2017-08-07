@@ -14,7 +14,7 @@
 @import 'base/helpers';
 
 /* =============================================================================
-// 1. Helpers
+// 1. General
 // -----------------------------------------------------------------------------*/
 
 body, html{
@@ -31,19 +31,6 @@ a{
 	}
 }
 
-.bg-cover{
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-
-.vertical-center{
-	align-items: center;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
-
 /* =============================================================================
 // 2. Header
 // -----------------------------------------------------------------------------*/
@@ -52,12 +39,14 @@ a{
 	display: block;
 	height: 325px;
 	position: relative;
+	@extend %bg-cover;
 }
 
 .header-content{
 	height: 85%;
 	min-height: 275px;
 	@extend %text-shadow;
+	@extend %vertical-center;
 }
 
 .site-title{
@@ -362,14 +351,11 @@ h1{
 // -----------------------------------------------------------------------------*/
 .sunset-post-image{
 	.bg-header{
-		background-repeat: no-repeat;
-		background-position: center center;
-		background-size: cover;
+		@extend %bg-cover
 	}
 	.entry-header{
 		color: white;
 		height: 400px;
-		margin-top: 5rem;
 		@extend %text-shadow;
 		.entry-title {
 			color: white;
@@ -402,5 +388,41 @@ h1{
 			padding-bottom: 20px;
 			padding-top: 20px;
 		}
+	}
+}
+
+/* =============================================================================
+// 5. Audio Post Format
+// -----------------------------------------------------------------------------*/
+.sunset-post-audio{
+	.entry-content{
+		width: 100% !important;
+		iframe{
+			width: 100% !important;
+			height: 166px !important;
+		}
+	}
+	.entry-meta{
+		display: inline-block;
+		margin-bottom: 0;
+	}
+	h1{
+		display: inline-block;
+		font-size: 2rem;
+		margin-right: 2rem;
+		&.entry-title{
+			&:before, &:after{
+				display: none;
+			}
+		}
+	}
+}
+
+/* =============================================================================
+// 6. Video Post Format
+// -----------------------------------------------------------------------------*/
+.sunset-post-video{
+	.entry-header{
+		margin-top:2rem;
 	}
 }

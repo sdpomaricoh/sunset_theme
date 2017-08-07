@@ -93,6 +93,10 @@ function sunset_posted_footer(){
 		<div class="col-xs-12 col-sm-6 text-right">'.$comments.'</div>';
 }
 
+/**
+ * find in the attachment of post a image
+ * @return [String] url of attachment to display
+ */
 function sunset_get_attachment(){
 
     $feature_image = '';
@@ -114,3 +118,23 @@ function sunset_get_attachment(){
     wp_reset_postdata();
     return $output;
 }
+
+
+/**
+ * find in the attachment of post a embed content
+ * @return [String] embed
+ */
+function sunset_get_embed_media($type = array()){
+    $content = do_shortcode(apply_filters('the_content', get_the_content()));
+    $embed = get_media_embedded_in_content( $content, $type);
+
+    if(in_array('audio',$type)){
+        $output =  str_replace('?visual=true','?visual=false',$embed[0]);
+    }else{
+        $output =  $embed[0];
+    }
+    
+    return $output;
+}
+
+

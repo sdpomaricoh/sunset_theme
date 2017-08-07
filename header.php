@@ -25,7 +25,7 @@
 </head>
 <body <?php body_class(); ?>>
 <!-- 		<div class="row"> -->
-	<header class="header-container text-center bg-cover" style="background-image: url(<?php header_image();?>)">
+	<header class="header-container text-center" style="background-image: url(<?php header_image();?>)">
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
